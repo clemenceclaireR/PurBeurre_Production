@@ -1,0 +1,18 @@
+# IDE
+*.pyc
+__pycache__/*.pyc
+.idea/
+
+# Migrations
+# purbeurre/migrations/*
+
+# test
+htmlcov/
+/.coverage
+/.coveragerc
+
+# data
+dump/data.json
+
+# prod
+website/settings/production.py
