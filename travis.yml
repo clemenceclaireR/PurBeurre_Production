@@ -11,10 +11,11 @@ services:
   - postgresql
 
 script:
-  - coverage run manage.py test
+#  - coverage run manage.py test
+  - python manage.py test
 
-branches:
-  only:
-    - staging
+#branches:
+#  only:
+#    - staging
 
 # test
