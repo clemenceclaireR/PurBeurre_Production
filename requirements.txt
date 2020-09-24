@@ -13,3 +13,6 @@ django-debug-toolbar==2.2
 whitenoise==5.1.0
 raven==6.10.0
 sentry-sdk==0.17.3
+newrelic==5.18.0.148
+
+

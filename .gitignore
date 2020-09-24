@@ -12,7 +12,12 @@ htmlcov/
 /.coveragerc
 
 # data
-dump/data.json
+# dump/data.json
 
 # prod
 website/settings/production.py
+
+# conf
+newrelic.ini
+
+
