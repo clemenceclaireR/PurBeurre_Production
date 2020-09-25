@@ -34,11 +34,11 @@ DEBUG = True
 
 
 # debug toolbar config
-DEBUG_TOOLBAR_CONFIG = {
-    'SHOW_TOOLBAR_CALLBACK': lambda request: DEBUG,
-}
+#DEBUG_TOOLBAR_CONFIG = {
+#    'SHOW_TOOLBAR_CALLBACK': lambda request: DEBUG,
+#}
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', '138.68.96.210']
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 LOGOUT_REDIRECT_URL = 'index'
@@ -112,10 +112,10 @@ DATABASES = {
     'default': {
        'ENGINE': 'django.db.backends.postgresql',
        'NAME': 'purbeurre',
-       'USER': 'postgres',
-       'PASSWORD': 'postgres',
-       'HOST': os.environ.get('SQL_HOST', 'localhost'),
-       'PORT': os.environ.get('SQL_PORT', '5432'),
+       'USER': 'clemence',
+       'PASSWORD': 'projet10openclassrooms',
+       'HOST': 'localhost',
+       'PORT': '5432',
     },
 }
 
