@@ -15,8 +15,19 @@ from django.core.exceptions import ImproperlyConfigured
 import dj_database_url
 import sys
 from django.contrib.messages import constants as messages
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
+sentry_sdk.init(
+dsn="https://d8dc99d2d710454598791b9d7b6674ff@o444030.ingest.sentry.io/5441149",
+#dsn="https://8bd480f7798f447cb2cc37b91b2cef3c@o444030.ingest.sentry.io/5441120",
+    integrations=[DjangoIntegration()],
+    traces_sample_rate=1.0,
 
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True
+)
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -34,11 +45,11 @@ DEBUG = True
 
 
 # debug toolbar config
-DEBUG_TOOLBAR_CONFIG = {
-    'SHOW_TOOLBAR_CALLBACK': lambda request: DEBUG,
-}
+#DEBUG_TOOLBAR_CONFIG = {
+#    'SHOW_TOOLBAR_CALLBACK': lambda request: DEBUG,
+#}
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', '138.68.96.210']
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 LOGOUT_REDIRECT_URL = 'index'
@@ -112,10 +123,10 @@ DATABASES = {
     'default': {
        'ENGINE': 'django.db.backends.postgresql',
        'NAME': 'purbeurre',
-       'USER': 'postgres',
-       'PASSWORD': 'postgres',
-       'HOST': os.environ.get('SQL_HOST', 'localhost'),
-       'PORT': os.environ.get('SQL_PORT', '5432'),
+       'USER': 'clemence',
+       'PASSWORD': 'projet10openclassrooms',
+       'HOST': 'localhost',
+       'PORT': '5432',
     },
 }
 
