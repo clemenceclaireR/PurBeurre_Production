@@ -13,6 +13,7 @@ htmlcov/
 
 # data
 # dump/data.json
+log_bdd_inputs.txt
 
 # prod
 website/settings/production.py
