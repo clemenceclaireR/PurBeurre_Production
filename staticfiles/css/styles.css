@@ -10,6 +10,14 @@
   background-color: #79aec8;
 }
 
+.bg-reset-password-image {
+  background-image: url("../assets/img/plateau_fromage.jpg"), linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%);
+}
+
+.bg-confirm-new-password-image {
+  background-image: url("../assets/img/grapes_cheese.jpg"), linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%);
+}
+
 .bg-login-image {
   background-image: url("../assets/img/bread.jpg"), linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%);
 }
@@ -199,6 +207,12 @@ button h4 {
 ul li {
     display: inline;
     padding: 10px;
+}
+
+div.error_form ul li {
+   color : red;
+   display: list-item;
+   padding: 1px;
 }
 
 .user_profile_picture {
