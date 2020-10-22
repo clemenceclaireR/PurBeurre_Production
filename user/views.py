@@ -6,6 +6,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
 import uuid
 from purbeurre.forms import SearchForm
 from .forms import UserRegistrationForm, LoginForm
@@ -22,10 +24,16 @@ def register(request):
 
         if user_form.is_valid():
             new_user = user_form.save(commit=False)
-            new_user.set_password(user_form.cleaned_data['password'])
-            # generate a unique id in order to username not to be empty
-            new_user.username = uuid.uuid1()
-            new_user.save()
+            try:
+                validate_password(user_form.cleaned_data['password'])
+                new_user.set_password(user_form.cleaned_data['password'])
+                # generate a unique id in order to username not to be empty
+                new_user.username = uuid.uuid1()
+                new_user.save()
+            except ValidationError as e:
+                user_form.add_error('password', e)
+                return render(request, 'registration/register.html', locals())
+
             return render(request,
                           'registration/register_done.html',
                           locals())

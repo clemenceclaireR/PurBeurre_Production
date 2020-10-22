@@ -36,6 +36,7 @@
                             {% csrf_token %}
                             <p><input type="submit" value="Connexion" class="btn btn-primary btn-user btn-block"></p>
                           </form>
+                          <p><a href="{% url 'password_reset' %}">Mot de passe oublié ?</a></p>
                         </div>
                   </div>
                 </div>

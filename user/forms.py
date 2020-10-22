@@ -55,6 +55,7 @@ class UserRegistrationForm(forms.ModelForm):
                                   'class': "form-control form-control-user"}))
     email = forms.EmailField(label="",
                              required=True,
+                             error_messages={'invalid': 'Saisissez un adresse e-mail valide.'},
                              widget=forms.TextInput
                              (attrs=
                               {'placeholder': "Adresse e-mail",
@@ -65,8 +66,7 @@ class UserRegistrationForm(forms.ModelForm):
         Check if e-mail is already used
         """
         if User.objects.filter(email=self.cleaned_data['email']).exists():
-            raise forms.ValidationError("This email address is "
-                                        "already registered")
+            raise forms.ValidationError("Cette adresse e-mail est déjà enregistrée.")
         return self.cleaned_data['email']
 
     def clean_password2(self):
@@ -75,5 +75,5 @@ class UserRegistrationForm(forms.ModelForm):
         """
         cd = self.cleaned_data
         if cd['password'] != cd['password2']:
-            raise forms.ValidationError('Passwords don\'t match.')
+            raise forms.ValidationError('Les mots de passe ne sont pas identiques.')
         return cd['password2']
