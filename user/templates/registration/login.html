@@ -34,7 +34,7 @@
                           <form action="{% url 'login' %}" method="post">
                             {{ login_form.as_p }}
                             {% csrf_token %}
-                            <p><input type="submit" value="Connexion" class="btn btn-primary btn-user btn-block"></p>
+                            <p><input type="submit" id="connexion" value="Connexion" class="btn btn-primary btn-user btn-block"></p>
                           </form>
                           <p><a href="{% url 'password_reset' %}">Mot de passe oublié ?</a></p>
                         </div>
