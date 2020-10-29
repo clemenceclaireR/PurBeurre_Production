@@ -41,10 +41,7 @@ class SeleniumTest(StaticLiveServerTestCase):
         username_input.send_keys('test@user.fr')
         password_input = self.selenium.find_element_by_name("password")
         password_input.send_keys('password')
-        try:
-            self.selenium.find_element_by_xpath('//input[@value="Connexion"]').click()
-        except Exception:
-            pass
+        self.selenium.find_element_by_xpath('//input[@value="Connexion"]').click()
 
     def test_search_form(self):
         self.selenium.get('%s%s' % (self.live_server_url, '/'))
