@@ -1,20 +1,27 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from selenium.webdriver.firefox.webdriver import WebDriver
+from selenium import webdriver
 from django.contrib.auth.models import User
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
 from purbeurre.models.products import Products
 from purbeurre.models.categories import Categories
 
 
 class SeleniumTest(StaticLiveServerTestCase):
+    """
+    Simulates user behavior on website
+    """
 
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.selenium = WebDriver()
+        options = webdriver.ChromeOptions()
+        options.add_argument('--headless')
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-dev-shm-usage')
+        options.add_experimental_option("excludeSwitches", ["enable-logging"])
+
+        cls.selenium = webdriver.Chrome(options=options)
         cls.selenium.implicitly_wait(10)
 
         cls.user = User.objects.create_user(username="test",
@@ -35,16 +42,26 @@ class SeleniumTest(StaticLiveServerTestCase):
         cls.selenium.quit()
         super().tearDownClass()
 
-    def test_login(self):
-        self.selenium.get('%s%s' % (self.live_server_url, '/login/'))
-        username_input = self.selenium.find_element_by_name("email")
+    @classmethod
+    def test_login(cls):
+        """
+        Takes user to login form with its data
+        """
+        cls.selenium.get('%s%s' % (cls.live_server_url, '/login/'))
+        username_input = cls.selenium.find_element_by_name("email")
         username_input.send_keys('test@user.fr')
-        password_input = self.selenium.find_element_by_name("password")
+        password_input = cls.selenium.find_element_by_name("password")
         password_input.send_keys('password')
-        self.selenium.find_element_by_xpath('//input[@value="Connexion"]').click()
+        cls.selenium.find_element_by_xpath('//input[@value="Connexion"]').click()
 
-    def test_search_form(self):
-        self.selenium.get('%s%s' % (self.live_server_url, '/'))
-        form_input = self.selenium.find_element_by_id("id_research")
+
+    @classmethod
+    def test_search_form(cls):
+        """
+        Takes user to search form with a product name to put inside form
+        """
+        cls.selenium.get('%s%s' % (cls.live_server_url, '/'))
+        form_input =cls.selenium.find_element_by_xpath\
+                ('//div[@id="searchform"]/form[@role="form"]/input[@id="id_research"]')
         form_input.send_keys('noix de coco')
         form_input.send_keys(Keys.RETURN)
