@@ -52,8 +52,11 @@ class SeleniumTest(StaticLiveServerTestCase):
         username_input.send_keys('test@user.fr')
         password_input = cls.selenium.find_element_by_name("password")
         password_input.send_keys('password')
-        cls.selenium.find_element_by_xpath('//input[@value="Connexion"]').click()
-
+        try:
+            cls.selenium.find_element_by_xpath('//input[@value="Connexion"]').click()
+        except Exception:
+            login_button =  cls.selenium.find_element_by_xpath('//input[@value="Connexion"]')
+            ActionChains(cls.selenium).move_to_element_with_offset(login_button, 0, -100).click().perform()
 
     @classmethod
     def test_search_form(cls):

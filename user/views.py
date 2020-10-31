@@ -24,7 +24,6 @@ def register(request):
 
         if user_form.is_valid():
             new_user = user_form.save(commit=False)
-            # enlever le try except avant le push test
             try:
                 validate_password(user_form.cleaned_data['password'])
                 new_user.set_password(user_form.cleaned_data['password'])
