@@ -15,8 +15,13 @@ class SeleniumTest(StaticLiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        options = webdriver.ChromeOptions()
+        options.add_argument('--headless')
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-dev-shm-usage')
+        options.add_experimental_option("excludeSwitches", ["enable-logging"])
 
-        cls.selenium = webdriver.Chrome()
+        cls.selenium = webdriver.Chrome(options=options)
         cls.selenium.implicitly_wait(10)
 
         cls.user = User.objects.create_user(username="test",
