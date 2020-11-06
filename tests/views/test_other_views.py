@@ -4,7 +4,6 @@
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
-from purbeurre.forms import SearchForm
 from purbeurre.models.products import Products
 from purbeurre.models.categories import Categories
 
@@ -23,7 +22,7 @@ class IndexPageTestCase(TestCase):
 
     def test_view_url_accessible_by_name(self):
         """
-        Index page is accessible with 'index'
+        Index page is accessible with url name
         """
         response = self.client.get(reverse('index'))
         self.assertEqual(response.status_code, 200)
@@ -36,14 +35,14 @@ class IndexPageTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'index.html')
 
-    def test_post_search_form_is_valid(self):
+    def test_filter_button_exists(self):
         """
-        Search form works from index page
+        Check if filter tag exists in index template
         """
-        response = self.client.post(reverse('index'), {
-            'research': 'product'
-        })
-        self.assertRedirects(response, '/search_results/product/')
+
+        self.assertContains(self.client.get(reverse('index')),
+                            '<p id="filter_option">Filtrer</p>',
+                            )
 
 
 class LegalInformationTestCase(TestCase):
@@ -78,7 +77,7 @@ class AccountTest(TestCase):
     def test_redirect_if_not_logged_in(self):
         """
         If not authenticated user wants to access account page,
-        redirected to login page
+        hes's redirected to login page
         """
         response = self.client.get(reverse('account'))
         self.assertRedirects(response, '/login/?next=/account/')
@@ -90,4 +89,3 @@ class AccountTest(TestCase):
         self.client.login(username='test', password='test')
         response = self.client.get(reverse('account'))
         self.assertEqual(response.status_code, 200)
-

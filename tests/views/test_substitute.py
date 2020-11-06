@@ -14,18 +14,22 @@ class SubstituteProductTest(TestCase):
     """
     def setUp(self):
         self.user = User.objects.create_user(id=1, username="test", password="test")
+
         self.category = Categories.objects.create(id=1, name="pâte à tariner")
+
         self.product1 = Products.objects.create(id=1, name='nutella',
                                                 nutriscore='d',
                                                 link="http://test.test.fr",
                                                 image="path/to/image",
                                                 category=Categories.objects.get(name=self.category))
+
         self.product2 = Products.objects.create(id=2, name='nocciolata',
                                                 nutriscore='c',
                                                 link="http://test.test.fr",
                                                 image="path/to/image",
                                                 category=Categories.objects.get
                                                 (name=self.category))
+
         self.product3 = Products.objects.create(id=3, name='nutella bio',
                                                 nutriscore='c',
                                                 link="http://test.test.fr",
@@ -39,7 +43,7 @@ class SubstituteProductTest(TestCase):
 
     def test_view_url_exists_at_desired_location(self):
         """
-        Results page is accessible with url name
+        Substitute results page is accessible with url name
         """
         response = self.client.get('/substitutes/nutella/')
         self.assertEqual(response.status_code, 200)
