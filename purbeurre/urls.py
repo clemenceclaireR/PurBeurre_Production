@@ -5,12 +5,11 @@ from django.conf.urls import url
 from django.urls import path
 from . import views
 
-
 urlpatterns = [
     path('saved_products/', views.saved_products,
          name='saved_products'),
-    url('search_results/(?P<product>.*)/$', views.search_results,
-        name='search_results'),
+    path('search_results', views.search_results,
+         name='search_results'),
     url('substitutes/(?P<product>.*)/$', views.search_substitutes,
         name='substitutes'),
     url('save_done/(?P<product>.*)/$', views.save_product,

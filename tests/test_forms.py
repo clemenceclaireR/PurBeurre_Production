@@ -2,7 +2,6 @@
 # -*- Coding: UTF-8 -*-
 
 from django.test import TestCase
-from django.contrib.auth.models import User
 from purbeurre.forms import SearchForm
 from user.forms import UserRegistrationForm
 
@@ -17,13 +16,13 @@ class SearchFormTest(TestCase):
         Checks field label name
         """
         form = SearchForm()
-        self.assertTrue(form.fields['research'].label == 'Recherche')
+        self.assertTrue(form.fields['name'].label == 'Recherche')
 
     def test_search_form(self):
         """
         Checks if search form is valid
         """
-        form_data = {'research': 'something'}
+        form_data = {'name': 'something', 'nutriscore': 'c'}
         form = SearchForm(data=form_data)
         self.assertTrue(form.is_valid())
 
@@ -32,7 +31,9 @@ class RegisterFormTest(TestCase):
     """
     Form tests for register form
     """
+
     def setUp(self):
+
         self.data = {
             'username': 'test2',
             'email': 'test@test.fr',
