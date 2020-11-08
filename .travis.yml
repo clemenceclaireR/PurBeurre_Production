@@ -20,7 +20,6 @@ branches:
   only:
     - staging
     - p11
-    - /.*/
 
 addons:
   chrome: stable
